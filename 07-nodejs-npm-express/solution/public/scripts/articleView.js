@@ -74,7 +74,7 @@ articleView.setTeasers = () => {
 };
 
 // COMMENT: When/where is this function invoked? What event ultimately triggers its execution? Explain the sequence of code execution when this function is invoked.
-// PUT YOUR RESPONSE HERE
+// This function is invoked at the bottom of new.html, that is, whenever the new.html page loads. It shows the tab content (in case it has been hidden before), it hides the export field section and highlights the currently selected field. When any form field changes, it calls articleView.create which updates the article preview at the bottom of the page. When the submit button is clicked, it calls articleView.submit which creates an object for the new article and calls insertRecord.
 articleView.initNewArticlePage = () => {
   $('.tab-content').show();
   $('#export-field').hide();
@@ -87,7 +87,7 @@ articleView.initNewArticlePage = () => {
 };
 
 // COMMENT: When is this function called? What event ultimately triggers its execution?
-// PUT YOUR RESPONSE HERE
+// This function is called when any form field of the new article form is changed.
 articleView.create = () => {
   let article;
   $('#articles').empty();
@@ -112,7 +112,7 @@ articleView.create = () => {
 };
 
 // COMMENT: When is this function called? What event ultimately triggers its execution?
-// PUT YOUR RESPONSE HERE
+// This function is the callback for the submit event listener. It is triggered when the user clicks the Submit button on the new article form.
 articleView.submit = event => {
   event.preventDefault();
   let article = new Article({
@@ -125,13 +125,13 @@ articleView.submit = event => {
   });
 
   // COMMENT: Where is this function defined? When is this function called? What event ultimately triggers its execution?
-  // PUT YOUR RESPONSE HERE
+  // This function is defined at the bottom of article.js. It is triggered when the user clicks the Submit button on the new article form.
   article.insertRecord();
-}
+};
 
 articleView.initIndexPage = () => {
   Article.all.forEach(article =>{
-    $('#articles').append(article.toHtml())
+    $('#articles').append(article.toHtml());
   });
 
   articleView.populateFilters();
