@@ -1,14 +1,16 @@
 'use strict';
 
+//TODO: Instantiate the ExpressJS framework.
+const express = require('express');
+const app = express();
+
 // REVIEW: There is a package here called body-parser, which is used by the provided POST route. Be sure to install that and save it as a dependency after you create your package.json.
 const bodyParser = require('body-parser').urlencoded({extended: true});
 const PORT = process.env.PORT || 3000;
 
-//TODO: Instantiate the ExpressJS framework and configure the app.use() middleware to interface with the file system to serve static resources.
+//TODO: Configure the app.use() middleware to interface with the file system to serve static resources.
 // COMMENT: Why are our files in a "public" directory now? How does ExpressJS serve files?
 //We have a public directory to organize the files that will be served to the "view". ExpressJS serves our local files by looking for them in the public folder and sends them to the "view".
-const express = require('express');
-const app = express();
 app.use(express.static('./public'));
 
 //TODO: Write a new route that will handle a request and send the new.html file back to the user. Create a route and callback that will serve up the new.html page via a separate URI.
