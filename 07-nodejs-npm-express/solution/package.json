@@ -1,0 +1,15 @@
+{
+  "name": "07-lab-solution",
+  "version": "1.0.0",
+  "description": "lab solution",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Beverly",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
