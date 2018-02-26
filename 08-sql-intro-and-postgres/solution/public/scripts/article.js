@@ -31,15 +31,14 @@ Article.loadAll = rawData => {
 
 Article.fetchAll = callback => {
   $.get('/articles')
-  .then(
-    function(results) {
+    .then(
+      function(results) {
       // REVIEW: Call loadAll, and pass in the results, then invoke the callback.
-      Article.loadAll(results);
-      callback();
-    }
-  )
+        Article.loadAll(results);
+        callback();
+      }
+    )
 };
-
 
 // REVIEW: Take a few minutes and review what each of these new methods do in relation to our server and DB
 Article.truncateTable = callback => {
@@ -47,18 +46,18 @@ Article.truncateTable = callback => {
     url: '/articles',
     method: 'DELETE',
   })
-  .then(data => {
-    console.log(data);
-    if (callback) callback();
-  });
+    .then(data => {
+      console.log(data);
+      if (callback) callback();
+    });
 };
 
 Article.prototype.insertRecord = function(callback) {
   $.post('/articles', {author: this.author, authorUrl: this.authorUrl, body: this.body, category: this.category, publishedOn: this.publishedOn, title: this.title})
-  .then(data => {
-    console.log(data);
-    if (callback) callback();
-  })
+    .then(data => {
+      console.log(data);
+      if (callback) callback();
+    })
 };
 
 Article.prototype.deleteRecord = function(callback) {
@@ -66,10 +65,10 @@ Article.prototype.deleteRecord = function(callback) {
     url: `/articles/${this.article_id}`,
     method: 'DELETE'
   })
-  .then(data => {
-    console.log(data);
-    if (callback) callback();
-  });
+    .then(data => {
+      console.log(data);
+      if (callback) callback();
+    });
 };
 
 Article.prototype.updateRecord = function(callback) {
@@ -85,8 +84,8 @@ Article.prototype.updateRecord = function(callback) {
       title: this.title
     }
   })
-  .then(data => {
-    console.log(data);
-    if (callback) callback();
-  });
+    .then(data => {
+      console.log(data);
+      if (callback) callback();
+    });
 };
