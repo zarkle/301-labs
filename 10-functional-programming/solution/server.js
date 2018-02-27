@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const app = express();
-const conString = '';
+const conString = 'postgres://localhost:5432/articles';
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', err => {
@@ -32,7 +32,7 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   client.query(
-    'INSERT INTO authors(author, "authorUrl") VALUES($1, $2) ON CONFLICT DO NOTHING',
+    'INSERT INTO authors(author, "authorUrl") VALUES($1, $2) ON CONFLICT DO NOTHING;',
     [request.body.author, request.body.authorUrl],
     function(err) {
       if (err) console.error(err)
@@ -42,7 +42,7 @@ app.post('/articles', (request, response) => {
 
   function queryTwo() {
     client.query(
-      `SELECT author_id FROM authors WHERE author=$1`,
+      `SELECT author_id FROM authors WHERE author=$1;`,
       [request.body.author],
       function(err, result) {
         if (err) console.error(err)
@@ -75,7 +75,7 @@ app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors
     SET author=$1, "authorUrl"=$2
-    WHERE author_id=$3
+    WHERE author_id=$3;
     `,
     [request.body.author, request.body.authorUrl, request.body.author_id]
   )
@@ -83,7 +83,7 @@ app.put('/articles/:id', (request, response) => {
     client.query(`
       UPDATE articles
       SET author_id=$1, title=$2, category=$3, "publishedOn"=$4, body=$5
-      WHERE article_id=$6
+      WHERE article_id=$6;
       `,
       [
         request.body.author_id,
@@ -125,7 +125,7 @@ function loadAuthors() {
   fs.readFile('./public/data/hackerIpsum.json', 'utf8', (err, fd) => {
     JSON.parse(fd).forEach(ele => {
       client.query(
-        'INSERT INTO authors(author, "authorUrl") VALUES($1, $2) ON CONFLICT DO NOTHING',
+        'INSERT INTO authors(author, "authorUrl") VALUES($1, $2) ON CONFLICT DO NOTHING;',
         [ele.author, ele.authorUrl]
       )
       .catch(console.error);
